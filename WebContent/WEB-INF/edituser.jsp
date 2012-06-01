@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <%@ taglib tagdir="/WEB-INF/tags" prefix="layouts"%>
-<layouts:layout_main title="- Main Page">
+<layouts:layout_main title=" - Edit User">
 	My Content
 </layouts:layout_main>
