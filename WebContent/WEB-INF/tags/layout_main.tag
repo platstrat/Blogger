@@ -18,11 +18,9 @@
 			<div class="menuitem-left">
 				Blogs
 			</div>
-			<div class="menuitem-left">
-				
-			</div>
 			<div class="menuitem-right">
 				Username
+				
 			</div>
 			<div class="menuitem-right">
 				<!-- Create link/servlet -->
