@@ -28,10 +28,6 @@ public class HomeServlet extends HttpServlet
 		getServletContext().getRequestDispatcher("/WEB-INF/allRecipes.jsp").forward(request, response);
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
 	{
 		this.doGet(request, response);
