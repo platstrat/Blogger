@@ -12,15 +12,15 @@
 	<div id="header">
 		<div id="menu-left">
 			<div class="menuitem-left">
-				<!-- Link to home -->
-				Captain's Log
+				<a href="">Captain's Log</a>
 			</div>
 			<div class="menuitem-left">
-				Blogs
+				<!-- View all blogs page -->
+				<a href="/blogs">Blogs</a>
 			</div>
 			<div class="menuitem-right">
-				Username
-				
+				<!-- Create link/servlet -->
+				Login/${user}
 			</div>
 			<div class="menuitem-right">
 				<!-- Create link/servlet -->
