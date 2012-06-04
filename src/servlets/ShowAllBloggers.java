@@ -10,19 +10,19 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Servlet implementation class ShowAllUsers
  */
-@WebServlet("/showAllUsers.do")
-public class ShowAllUsers extends HttpServlet {
+@WebServlet("/showAllBloggers.do")
+public class ShowAllBloggers extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ShowAllUsers() {
+    public ShowAllBloggers() {
         super();
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getRequestDispatcher("/WEB-INF/allUsers.jsp").forward(request, response);
+		request.getRequestDispatcher("/WEB-INF/allBloggers.jsp").forward(request, response);
 	}
 
 }

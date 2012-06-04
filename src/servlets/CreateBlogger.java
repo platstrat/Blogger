@@ -10,24 +10,25 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.transaction.NotSupportedException;
-import javax.transaction.SystemException;
-import javax.transaction.UserTransaction;
+
+import managers.BloggerManager;
+
+import entities.Blogger;
 
 /**
- * Servlet implementation class NewUser
+ * Servlet implementation class CreateBlogger
  */
-@WebServlet("/NewUser")
-public class NewUser extends HttpServlet {
+@WebServlet("/NewBlogger")
+public class CreateBlogger extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	@EJB
-	UserManager um;
+	BloggerManager um;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public NewUser() {
+    public CreateBlogger() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -37,8 +38,8 @@ public class NewUser extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		List<String> errors = new ArrayList<>();
-		String name = request.getParameter("name");
-		if(name == null || name.isEmpty()) {
+		String username = request.getParameter("username");
+		if(username == null || username.isEmpty()) {
 			errors.add("Invalid name");
 		}
 		String password = request.getParameter("password");
@@ -46,15 +47,15 @@ public class NewUser extends HttpServlet {
 		
 		String email = request.getParameter("email");
 		
-		User u = new User();
-		u.setName(name);
+		Blogger u = new Blogger();
+		u.setUsername(username);
 		u.setPassword(password);
 		u.setEmail(email);
-		u.setDateRegistered(new java.util.Date());
+		u.setRegistered(new java.util.Date());
 		um.create(u);
 		
-		// showAllUsers.do is a mapping to a JSP file inside WEB-INF
-		response.sendRedirect("showAllUsers.do");
+		// showAllBloggers.do is a mapping to a JSP file inside WEB-INF
+		response.sendRedirect("showAllBloggers.do");
 	}
 
 }

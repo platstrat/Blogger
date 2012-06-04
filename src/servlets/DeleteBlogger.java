@@ -9,38 +9,32 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import entities.Ingredient;
-import entities.Recipe;
+import managers.BloggerManager;
 
 /**
- * Servlet implementation class UpdateUser
+ * Servlet implementation class DeleteBlogger
  */
-@WebServlet("/UpdateUser")
-public class UpdateUser extends HttpServlet {
+@WebServlet("/DeleteBlogger")
+public class DeleteBlogger extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-	@EJB
-	UserManager um;
 	
+	@EJB
+	BloggerManager bm;
+       
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public UpdateUser() {
+    public DeleteBlogger() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		User u = um.getUser(Integer.parseInt(request.getParameter("id")));
-		u.setName(request.getParameter("name"));
-		u.setPassword(request.getParameter("password"));
-		u.email(request.getParameter("email"));
-		um.update(u);
-		
-		response.sendRedirect("showAllUsers.do");
+		bm.remove(Integer.parseInt(request.getParameter("id")));
+		// showAllBloggers.do is a mapping to a JSP file inside WEB-INF
+		response.sendRedirect("showAllBloggers.do");
 	}
 
 }
