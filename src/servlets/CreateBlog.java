@@ -48,12 +48,10 @@ public class CreateBlog extends HttpServlet {
 		
 		Blog b = new Blog();
 		b.setName(name);
-		// Blog should accept only one String as type, not a List of Strings
-//		b.setType(type);
+		b.setType(type);
 		b.setContent(content);
 		b.setCreated(new java.util.Date());
-		// Blog entity should have a setTags() method
-//		b.setTags(tags);
+		b.setTags(tags);
 		bm.create(b);
 		
 		response.sendRedirect("showAllBlogs.do");

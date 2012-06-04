@@ -33,9 +33,9 @@ public class UpdateBlog extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Blog b = bm.getBlog(Integer.parseInt(request.getParameter("id")));
 		b.setName(request.getParameter("name"));
-		// TO-DO: setType() must take in String instead of List<String> because a blog only has one type
-//		b.setType(request.getParameter("type"));
+		b.setType(request.getParameter("type"));
 		b.setContent(request.getParameter("content"));
+		b.setTags(request.getParameter("tags"));
 		b.setEdited(new java.util.Date());
 		bm.update(b);
 		
