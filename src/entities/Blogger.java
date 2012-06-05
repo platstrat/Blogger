@@ -7,13 +7,18 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity
-@NamedQuery(name="Blogger.findAll", query="SELECT b FROM Blogger b")
+@NamedQueries({
+	@NamedQuery(name="Blogger.findAll", query="SELECT b FROM Blogger b"),
+	@NamedQuery(name = "Blogger.username", query = "SELECT b from Blogger b WHERE b.username=:username")
+	}) 
+
 public class Blogger 
 {
 	@Id
