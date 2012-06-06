@@ -30,6 +30,8 @@ public class DeleteBlog extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		bm.remove(Integer.parseInt(request.getParameter("id")));
-		response.sendRedirect("showAllBlogs.do");
+		
+		request.getSession().setAttribute("blogs", bm.getBlogs());
+		request.getRequestDispatcher("/WEB-INF/viewallblogs.jsp").forward(request, response);
 	}
 }

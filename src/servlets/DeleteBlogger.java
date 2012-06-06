@@ -32,9 +32,11 @@ public class DeleteBlogger extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		bm.remove(Integer.parseInt(request.getParameter("id")));
-		// showAllBloggers.do is a mapping to a JSP file inside WEB-INF
-		response.sendRedirect("showAllBloggers.do");
+		int id = Integer.parseInt(request.getParameter("id"));
+		bm.remove(id);
+		
+		request.getSession().setAttribute("blogger", bm.getBlogger(id));
+		request.getRequestDispatcher("/WEB-INF/viewallbloggers.jsp").forward(request, response);
 	}
 
 }

@@ -28,7 +28,6 @@ public class UpdateBlog extends HttpServlet {
      */
     public UpdateBlog() {
         super();
-        // TODO Auto-generated constructor stub
     }
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Blog b = bm.getBlog(Integer.parseInt(request.getParameter("id")));
@@ -39,7 +38,8 @@ public class UpdateBlog extends HttpServlet {
 		b.setEdited(new java.util.Date());
 		bm.update(b);
 		
-		response.sendRedirect("showAllBlogs.do");
+		request.getSession().setAttribute("blogs", bm.getBlogs());
+		request.getRequestDispatcher("/WEB-INF/viewallblogs.jsp").forward(request, response);
 	}
 
 }

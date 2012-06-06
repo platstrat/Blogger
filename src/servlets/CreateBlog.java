@@ -54,7 +54,8 @@ public class CreateBlog extends HttpServlet {
 		b.setTags(tags);
 		bm.create(b);
 		
-		response.sendRedirect("showAllBlogs.do");
+		request.getSession().setAttribute("blogs", bm.getBlogs());
+		request.getRequestDispatcher("/WEB-INF/viewblog.jsp").forward(request, response);
 	}
 
 }
