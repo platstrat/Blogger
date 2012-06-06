@@ -4,10 +4,10 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <layouts:layout_main title=" - Edit User">
 	<div hidden="hidden">
-		${id }</div>
+		${user.id }</div>
 	<h1>User information:</h1>
-	${name }
-	Type: ${password }
-	Tags: ${email }
-	<a href="/users/edit/${id }">Edit</a>
+	${user.username }
+	Type: ${user.password }
+	Tags: ${user.email }
+	<a href="/users/edit/${user.id }">Edit</a>
 </layouts:layout_main>

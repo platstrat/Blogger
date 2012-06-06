@@ -35,4 +35,14 @@
 			<form-error-page>/WEB-INF/login.jsp</form-error-page>
 		</form-login-config>
 	</login-config>
+	
+	<servlet>
+	    <servlet-name>View Blogger</servlet-name>
+	    <servlet-class>servlets.ViewBlogger</servlet-class>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>View Blogger</servlet-name>
+		<url-pattern>/edit/users/*</url-pattern>	    
+	</servlet-mapping>
 </web-app>

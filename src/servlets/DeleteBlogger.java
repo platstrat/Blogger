@@ -35,7 +35,7 @@ public class DeleteBlogger extends HttpServlet {
 		int id = Integer.parseInt(request.getParameter("id"));
 		bm.remove(id);
 		
-		request.getSession().setAttribute("blogger", bm.getBlogger(id));
+		request.getSession().setAttribute("user", bm.getBlogger(id));
 		request.getRequestDispatcher("/WEB-INF/viewallbloggers.jsp").forward(request, response);
 	}
 

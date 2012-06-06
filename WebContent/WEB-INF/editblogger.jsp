@@ -12,23 +12,23 @@
 		</c:if>
 	</div>
 	<form method="POST" action="/UpdateBlogger">
-		<c:if test="${username == null }">
+		<c:if test="${user.username == null }">
 			<div class="form_error">REQUIRED</div></c:if>
 		<div class="form_left">
 			Username:</div>
 		<div class="form_right">
-			<input type="text" name="username" value="${username }"/>
+			<input type="text" name="username" value="${user.username }"/>
 			</div>
-		<c:if test="${password == null}">
+		<c:if test="${user.password == null}">
 			<div class="form_error">REQUIRED</div></c:if>
 		<div class="form_left">
 			Password:</div>
 		<div class="form_right">
-			<input type="text" name="password" value="${password }" /></div>
+			<input type="text" name="password" value="${user.password }" /></div>
 		<div class="form_left">
 			Email:</div>
 		<div class="form_right">
-			<input type="text" name="email" value="${email }" /></div>
+			<input type="text" name="email" value="${user.email }" /></div>
 		<div class="form_submit">
 			<input type="submit" value="UpdateBlogger" /></div>
 	</form>

@@ -30,7 +30,7 @@
 			<div class="menuitem-right">
 				<c:choose>
   					<c:when test="${user == null}">
-						<a href="/Register">Register</a></c:when>
+						<a href="/register.jsp">Register</a></c:when>
   					<c:otherwise>
   						<a href="/Logout">Logout</a></c:otherwise>
 				</c:choose>

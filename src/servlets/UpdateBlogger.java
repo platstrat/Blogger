@@ -35,14 +35,14 @@ public class UpdateBlogger extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int id = Integer.parseInt(request.getParameter("id"));
-		Blogger b = bm.getBlogger(id);
-		b.setUsername(request.getParameter("username"));
-		b.setPassword(request.getParameter("password"));
-		b.setEmail(request.getParameter("email"));
-		bm.update(b);
+		Blogger user = bm.getBlogger(id);
+		user.setUsername(request.getParameter("username"));
+		user.setPassword(request.getParameter("password"));
+		user.setEmail(request.getParameter("email"));
+		bm.update(user);
 		
-		request.getSession().setAttribute("blogger", bm.getBlogger(id));
-		request.getRequestDispatcher("/WEB-INF/viewallbloggers.jsp").forward(request, response);
+		request.getSession().setAttribute("user", user);
+		request.getRequestDispatcher("/WEB-INF/viewblogger.jsp").forward(request, response);
 	}
 
 }

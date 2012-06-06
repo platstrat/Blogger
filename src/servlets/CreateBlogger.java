@@ -25,7 +25,7 @@ import entities.Blogger;
 /**
  * Servlet implementation class CreateBlogger
  */
-@WebServlet("/NewBlogger")
+@WebServlet("/Register")
 public class CreateBlogger extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
@@ -79,14 +79,14 @@ public class CreateBlogger extends HttpServlet {
 			}
 			
 			utx.begin();
-			Blogger b = new Blogger();
-			b.setUsername(username);
-			b.setPassword(password);
-			b.setEmail(email);
-			b.setRegistered(new java.util.Date());
-			bm.create(b);
+			Blogger user = new Blogger();
+			user.setUsername(username);
+			user.setPassword(password);
+			user.setEmail(email);
+			user.setRegistered(new java.util.Date());
+			bm.create(user);
 			
-			request.getSession().setAttribute("blogger", b);
+			request.getSession().setAttribute("user", user);
 			
 			em.flush();
 			utx.commit();

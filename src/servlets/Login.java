@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Servlet implementation class Login
  */
-@WebServlet("/login.do")
+@WebServlet("/Login")
 public class Login extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -25,7 +25,7 @@ public class Login extends HttpServlet {
 		request.logout();
 		request.login(request.getParameter("username"), request.getParameter("password"));
 		String redirect = request.getParameter("redirect");
-		redirect = redirect == null? "/" : redirect;
+		redirect = redirect == null? "" : redirect;
 		response.sendRedirect(response.encodeRedirectURL(redirect));
 	}
 }
