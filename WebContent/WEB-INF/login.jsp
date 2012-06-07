@@ -12,15 +12,10 @@
 		</c:if>
 	</div>
 	<form method="POST" action="j_security_check">
-		<c:if test="${username == null }">
-			<div class="form_error">REQUIRED</div></c:if>
 		<div class="form_left">
 			Username:</div>
 		<div class="form_right">
-			<input type="text" name="j_username" />
-			</div>
-		<c:if test="${password == null}">
-			<div class="form_error">REQUIRED</div></c:if>
+			<input type="text" name="j_username" /></div>
 		<div class="form_left">
 			Password:</div>
 		<div class="form_right">

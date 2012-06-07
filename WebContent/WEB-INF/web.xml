@@ -3,7 +3,7 @@
 	xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
 	id="WebApp_ID" version="3.0">
-	<display-name>Team 4 Blogger</display-name>
+	<display-name>Blogger</display-name>
 	<welcome-file-list>
 		<welcome-file>index.jsp</welcome-file>
 	</welcome-file-list>
@@ -14,6 +14,10 @@
 	<error-page>
 		<error-code>404</error-code>
 		<location>/WEB-INF/errors/not_found.jsp</location>
+	</error-page>
+	<error-page>
+		<error-code>500</error-code>
+		<location>/WEB-INF/errors/internal_server_error.jsp</location>
 	</error-page>
 	<security-constraint>
 		<display-name>Login Pages</display-name>
@@ -37,12 +41,22 @@
 	</login-config>
 	
 	<servlet>
-	    <servlet-name>View Blogger</servlet-name>
+	    <servlet-name>ViewBlogger</servlet-name>
 	    <servlet-class>servlets.ViewBlogger</servlet-class>
 	</servlet>
 	
 	<servlet-mapping>
-		<servlet-name>View Blogger</servlet-name>
-		<url-pattern>/edit/users/*</url-pattern>	    
+		<servlet-name>ViewBlogger</servlet-name>
+		<url-pattern>/user/edit/*</url-pattern>	    
+	</servlet-mapping>
+	
+	<servlet>
+	    <servlet-name>ViewAllBlogs</servlet-name>
+	    <servlet-class>servlets.ViewAllBlogs</servlet-class>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>ViewAllBlogs</servlet-name>
+		<url-pattern>/blogs/all</url-pattern>	    
 	</servlet-mapping>
 </web-app>

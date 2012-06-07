@@ -13,16 +13,16 @@
 	<div id="header">
 		<div id="menu-left">
 			<div class="menuitem-left">
-				<a href="">Captain's Log</a>
+				<a href="./">Captain's Log</a>
 			</div>
 			<div class="menuitem-left">
 				<!-- View all blogs page -->
-				<a href="/Blogs">Blogs</a>
+				<a href="./ShowAllBlogs">Blogs</a>
 			</div>
 			<div class="menuitem-right">
 				<c:choose>
   					<c:when test="${user == null}">
-						<a href="/Login">Login</a></c:when>
+						<a href="./login.jsp">Login</a></c:when>
   					<c:otherwise>
   						${user}</c:otherwise>
 				</c:choose>
@@ -30,9 +30,9 @@
 			<div class="menuitem-right">
 				<c:choose>
   					<c:when test="${user == null}">
-						<a href="/register.jsp">Register</a></c:when>
+						<a href="./register.jsp">Register</a></c:when>
   					<c:otherwise>
-  						<a href="/Logout">Logout</a></c:otherwise>
+  						<a href="./Logout">Logout</a></c:otherwise>
 				</c:choose>
 			</div>
 		</div>

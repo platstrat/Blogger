@@ -11,16 +11,11 @@
 			</c:forEach>
 		</c:if>
 	</div>
-	<form method="POST" action="/Register">
-		<c:if test="${username == null }">
-			<div class="form_error">REQUIRED</div></c:if>
+	<form method="POST" action="./Register">
 		<div class="form_left">
 			Username:</div>
 		<div class="form_right">
-			<input type="text" name="username" />
-			</div>
-		<c:if test="${password == null}">
-			<div class="form_error">REQUIRED</div></c:if>
+			<input type="text" name="username" /></div>
 		<div class="form_left">
 			Password:</div>
 		<div class="form_right">
@@ -30,6 +25,6 @@
 		<div class="form_right">
 			<input type="text" name="email" /></div>
 		<div class="form_submit">
-			<input type="submit" value="Register" /></div>
+			<input type="submit" /></div>
 	</form>
 </layouts:layout_main>

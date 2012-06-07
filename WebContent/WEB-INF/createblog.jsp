@@ -11,7 +11,7 @@
 			</c:forEach>
 		</c:if>
 	</div>
-	<form method="POST" action="/CreateBlog">
+	<form method="POST" action="./CreateBlog">
 		<c:if test="${name == null }">
 			<div class="form_error">REQUIRED</div></c:if>
 		<div class="form_left">
