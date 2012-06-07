@@ -50,6 +50,12 @@ public class CreateBlogger extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		HttpSession session = request.getSession(false);
+		if (session != null){
+			request.logout();
+			session.invalidate();
+		}
+		
 		List<String> errors = new ArrayList<>();
 		
 		String username = request.getParameter("username");
@@ -74,6 +80,7 @@ public class CreateBlogger extends HttpServlet {
 			q.setParameter("username", username);
 			if (q.getResultList().size() > 0){
 				request.setAttribute("duplicate", true);
+				errors.add("Duplicate username");
 				request.getRequestDispatcher("register.jsp").forward(request, response);
 				return;
 			}
@@ -91,24 +98,18 @@ public class CreateBlogger extends HttpServlet {
 			em.flush();
 			utx.commit();
 			
-			HttpSession session = request.getSession(false);
-			if (session != null){
-				request.logout();
-				session.invalidate();
-			}
 			request.login(username, password);
-			response.sendRedirect(response.encodeRedirectURL("UserInfo"));
-			
+//			response.sendRedirect(response.encodeRedirectURL("UserInfo"));
+			request.getRequestDispatcher("WEB-INF/viewblogger.jsp").forward(request, response);
 		} catch (Exception commit){
 			commit.printStackTrace();
-			try{
-				utx.rollback();
-			} catch (Exception rollback){
-				rollback.printStackTrace();
-			}
-			response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+//			try{
+//				utx.rollback();
+//			} catch (Exception rollback){ 
+//				rollback.printStackTrace();
+//			}
+//			response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 		}
-		request.getRequestDispatcher("/WEB-INF/viewblogger.jsp").forward(request, response);
 	}
 
 }

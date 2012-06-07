@@ -31,6 +31,9 @@ public class Blogger
 	@Column(nullable=false, length=255)
 	private String password;
 	
+	@Column(nullable=true)
+	private String email;
+	
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(updatable=false, nullable=false)
 	private Date registered;
@@ -47,7 +50,6 @@ public class Blogger
 	@OneToMany(mappedBy="blogger")
 	private List<Rating> ratings;
 	
-	private String email;
 	
 	public Blogger(){} 
 
