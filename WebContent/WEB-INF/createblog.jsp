@@ -40,6 +40,6 @@
 		<div class="form_right">
 			<input type="text" multiple="multiple" name="content" /></div>
 		<div class="form_submit">
-			<input type="submit" value="CreateBlog" /></div>
+			<input type="submit" value="Create Blog" /></div>
 	</form>
 </layouts:layout_main>

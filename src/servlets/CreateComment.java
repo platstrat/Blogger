@@ -11,43 +11,40 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import entities.Blog;
+import entities.Blogger;
+import entities.Comment;
+
 import managers.BlogManager;
 
-import entities.Blog;
-
 /**
- * Servlet implementation class CreateBlog
+ * Servlet implementation class CreateComment
  */
-@WebServlet("/CreateBlog")
-public class CreateBlog extends HttpServlet {
+@WebServlet("/CreateComment")
+public class CreateComment extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	@EJB
-	BlogManager bm;
+	BlogManager bm;   
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		List<String> errors = new ArrayList<>();
-		String name = request.getParameter("name");
-		if(name == null || name.isEmpty()) {
-			errors.add("You must name your blog");
-		}
-		String type = request.getParameter("type");
-		if(type == null || type.isEmpty()) 
-		{
-			errors.add("Must select a blog type");
-		}
+		int id = Integer.parseInt(request.getParameter("id"));
 		String content = request.getParameter("content");
-		String tags = request.getParameter("tags");
-		
-		Blog b = new Blog();
-		b.setName(name);
-		b.setType(type);
-		b.setContent(content);
-		b.setCreated(new java.util.Date());
-		b.setTags(tags);
-		bm.create(b);
+		Blogger user = (Blogger) request.getAttribute("user");		
+		if(content == null || content.isEmpty())
+		{
+			errors.add("Please enter content for your blog");
+		}
+		Comment c = new Comment();
+		Blog b = bm.getBlog(id);
+		c.setBlogger(user);
+		c.setBlog(b);
+		c.setContent(content);
+		b.getComments().add(c);
 		
 		request.setAttribute("blog", b);
+		request.setAttribute("average", bm.getAverage(b));
 		request.getRequestDispatcher("/WEB-INF/viewblog.jsp").forward(request, response);
 	}
 
