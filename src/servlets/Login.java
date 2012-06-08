@@ -22,10 +22,14 @@ public class Login extends HttpServlet {
     }
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.logout();
-		request.login(request.getParameter("username"), request.getParameter("password"));
-		String redirect = request.getParameter("redirect");
-		redirect = redirect == null? "" : redirect;
-		response.sendRedirect(response.encodeRedirectURL(redirect));
+		try{
+			request.logout();
+			request.login(request.getParameter("username"), request.getParameter("password"));
+			String redirect = request.getParameter("redirect");
+			redirect = redirect == null ? "/" : redirect;
+			response.sendRedirect(response.encodeRedirectURL(redirect));
+		} catch (ServletException e){
+			request.getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
+		}
 	}
 }

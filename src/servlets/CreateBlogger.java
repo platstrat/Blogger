@@ -88,7 +88,7 @@ public class CreateBlogger extends HttpServlet {
 			utx.begin();
 			Blogger user = new Blogger();
 			user.setUsername(username);
-			user.setPassword(password);
+			user.setClearPassword(password);
 			user.setEmail(email);
 			user.setRegistered(new java.util.Date());
 			bm.create(user);
@@ -99,16 +99,14 @@ public class CreateBlogger extends HttpServlet {
 			utx.commit();
 			
 			request.login(username, password);
-//			response.sendRedirect(response.encodeRedirectURL("UserInfo"));
 			request.getRequestDispatcher("WEB-INF/viewblogger.jsp").forward(request, response);
 		} catch (Exception commit){
-			commit.printStackTrace();
-//			try{
-//				utx.rollback();
-//			} catch (Exception rollback){ 
-//				rollback.printStackTrace();
-//			}
-//			response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+			try{
+				utx.rollback();
+			} catch (Exception rollback){ 
+				rollback.printStackTrace();
+			}
+			response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 		}
 	}
 

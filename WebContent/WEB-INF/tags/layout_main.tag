@@ -22,9 +22,9 @@
 			<div class="menuitem-right">
 				<c:choose>
   					<c:when test="${user == null}">
-						<a href="./login.jsp">Login</a></c:when>
+						<a href="./ViewBlogger">Login</a></c:when>
   					<c:otherwise>
-  						${user}</c:otherwise>
+  						${user.username}</c:otherwise>
 				</c:choose>
 			</div>
 			<div class="menuitem-right">
