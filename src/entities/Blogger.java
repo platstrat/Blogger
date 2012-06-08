@@ -7,11 +7,18 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity
+@NamedQueries({
+	@NamedQuery(name="Blogger.findAll", query="SELECT b FROM Blogger b"),
+	@NamedQuery(name = "Blogger.username", query = "SELECT b from Blogger b WHERE b.username=:username")
+	}) 
+
 public class Blogger 
 {
 	@Id
@@ -23,6 +30,9 @@ public class Blogger
 	
 	@Column(nullable=false, length=255)
 	private String password;
+	
+	@Column(nullable=true)
+	private String email;
 	
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(updatable=false, nullable=false)
@@ -40,7 +50,6 @@ public class Blogger
 	@OneToMany(mappedBy="blogger")
 	private List<Rating> ratings;
 	
-	private String email;
 	
 	public Blogger(){} 
 

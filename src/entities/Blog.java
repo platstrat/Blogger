@@ -8,11 +8,13 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity
+@NamedQuery(name="Blog.findAll", query="SELECT b FROM Blog b")
 public class Blog 
 {
 	@Id
@@ -42,7 +44,9 @@ public class Blog
     @Temporal(TemporalType.TIMESTAMP)
     private Date edited;
     
-	private List<String> type;
+	private String type;
+	
+	private String tags;
 	
 	public Blog(){}
 
@@ -69,6 +73,14 @@ public class Blog
 	public void setContent(String content) {
 		this.content = content;
 	}
+	
+	public String getTags() {
+		return tags;
+	}
+	
+	public void setTags(String tags) {
+		this.tags = tags;
+	}
 
 	public Blogger getBlogger() {
 		return blogger;
@@ -94,11 +106,11 @@ public class Blog
 		this.edited = edited;
 	}
 
-	public List<String> getType() {
+	public String getType() {
 		return type;
 	}
 
-	public void setType(List<String> type) {
+	public void setType(String type) {
 		this.type = type;
 	}
 

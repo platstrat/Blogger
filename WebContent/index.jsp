@@ -19,5 +19,4 @@
 			</div>
 		</c:forEach>
 	</div>
-	Anything else?
 </layouts:layout_main>
