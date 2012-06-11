@@ -8,6 +8,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import entities.Blog;
+import entities.Rating;
 
 @Stateless
 @LocalBean

@@ -7,13 +7,12 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-
-import crypto.Encryption;
 
 @Entity
 @NamedQueries({
@@ -52,6 +51,8 @@ public class Blogger
 	@OneToMany(mappedBy="blogger")
 	private List<Rating> ratings;
 	
+	@ManyToMany
+	private List<BloggerGroup> groups;
 	
 	public Blogger(){} 
 
@@ -62,7 +63,7 @@ public class Blogger
 	public void setId(int id) {
 		this.id = id;
 	}
-
+	
 	public String getUsername() {
 		return username;
 	}
@@ -74,16 +75,11 @@ public class Blogger
 	public String getPassword() {
 		return password;
 	}
-	
+
 	public void setPassword(String password) {
-		this.password = password; 
+		this.password = password;
 	}
 
-	public void setClearPassword(String password) {
-		String hashed = Encryption.digest(password);
-		this.setPassword(hashed);
-	}
-	
 	public Date getRegistered() {
 		return registered;
 	}
@@ -132,4 +128,11 @@ public class Blogger
 		this.ratings = ratings;
 	}
 	
+	public List<BloggerGroup> getGroups() {
+		return groups;
+	}
+	
+	public void setGroups(List<BloggerGroup> groups) {
+		this.groups = groups;
+	}
 }

@@ -33,21 +33,15 @@ public class ViewBlogger extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int id = -1;
 		try {
-			id = Integer.parseInt(request.getPathInfo());
+			int id = Integer.parseInt(request.getPathInfo());
+			request.setAttribute("user", bm.getBlogger(id));
 		}
 		catch(Exception e) {
-			//response.sendError(HttpServletResponse.SC_BAD_REQUEST);
-			//return;
+			response.sendError(HttpServletResponse.SC_BAD_REQUEST);
 		}
 		
-		if(id > -1) {
-			request.setAttribute("user", bm.getBlogger(id));
-			request.getRequestDispatcher("/WEB-INF/viewblogger.jsp").forward(request, response);
-		} else {
-			request.getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
-		}
+		request.getRequestDispatcher("/WEB-INF/editblogger.jsp").forward(request, response);
 	}
 
 }

@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import managers.BlogManager;
 
 import entities.Blog;
+import entities.Rating;
 
 /**
  * Servlet implementation class UpdateBlog
@@ -41,5 +42,4 @@ public class UpdateBlog extends HttpServlet {
 		request.getSession().setAttribute("blogs", bm.getBlogs());
 		request.getRequestDispatcher("/WEB-INF/viewallblogs.jsp").forward(request, response);
 	}
-
 }
