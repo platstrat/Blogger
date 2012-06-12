@@ -14,6 +14,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import crypto.Encryption;
+
 @Entity
 @NamedQueries({
 	@NamedQuery(name="Blogger.findAll", query="SELECT b FROM Blogger b"),
@@ -78,6 +80,11 @@ public class Blogger
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+	
+	public void setClearPassword(String clearpassword){
+		String hashed = Encryption.digest(clearpassword);
+		this.setPassword(hashed);
 	}
 
 	public Date getRegistered() {

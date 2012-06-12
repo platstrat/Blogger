@@ -14,6 +14,7 @@
 	<!-- <a href="/blogs/edit/${id }">Edit</a> -->
 </layouts:layout_main>
 <form method="post" action="/UpdateRating">
+	Rate blog: 
 	<select name="rating">
 		<option value="1">1</option>
 		<option value="2">2</option>

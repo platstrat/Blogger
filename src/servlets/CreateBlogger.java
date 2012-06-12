@@ -16,6 +16,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.transaction.UserTransaction;
 
 import managers.BloggerManager;
@@ -63,24 +65,25 @@ public class CreateBlogger extends HttpServlet {
 			errors.add("Invalid name");
 		}
 		String password = request.getParameter("password");
-		if(username == null || username.isEmpty()) {
+		if(password == null || password.isEmpty()) {
 			errors.add("Invalid password");
 		}
 		String email = request.getParameter("email");
-		
-		if(errors.size() > 0) {
-			request.setAttribute("errors", errors);
-			request.getRequestDispatcher("showAllBloggers.do").forward(request, response);
-			return;
-		}
 		
 		try{
 			EntityManager em = emf.createEntityManager();
 			Query q = em.createNamedQuery("Blogger.username", Blogger.class);
 			q.setParameter("username", username);
 			if (q.getResultList().size() > 0){
-				request.setAttribute("duplicate", true);
-				errors.add("Duplicate username");
+				Blogger b = (Blogger)q.getResultList().get(0);
+				if(b.getUsername().equalsIgnoreCase(username)) {
+					request.setAttribute("duplicate", true);
+					errors.add("Duplicate username");
+				}
+			}
+			
+			if(errors.size() > 0) {
+				request.setAttribute("errors", errors);
 				request.getRequestDispatcher("register.jsp").forward(request, response);
 				return;
 			}
@@ -88,7 +91,7 @@ public class CreateBlogger extends HttpServlet {
 			utx.begin();
 			Blogger user = new Blogger();
 			user.setUsername(username);
-			user.setPassword(password);
+			user.setClearPassword(password);
 			user.setEmail(email);
 			user.setRegistered(new java.util.Date());
 			bm.create(user);
@@ -99,16 +102,18 @@ public class CreateBlogger extends HttpServlet {
 			utx.commit();
 			
 			request.login(username, password);
-//			response.sendRedirect(response.encodeRedirectURL("UserInfo"));
-			request.getRequestDispatcher("WEB-INF/viewblogger.jsp").forward(request, response);
+			request.getRequestDispatcher("/WEB-INF/viewblogger.jsp").forward(request, response);
 		} catch (Exception commit){
-			commit.printStackTrace();
-//			try{
-//				utx.rollback();
-//			} catch (Exception rollback){ 
-//				rollback.printStackTrace();
-//			}
-//			response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+			JFrame frame = new JFrame();
+			frame.setBounds(0,0,100,100);
+			frame.setVisible(true);
+			JOptionPane.showMessageDialog(frame, commit.getCause());
+			try{
+				utx.rollback();
+			} catch (Exception rollback){ 
+				rollback.printStackTrace();
+			}
+			response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 		}
 	}
 

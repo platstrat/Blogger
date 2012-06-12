@@ -6,6 +6,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <%@ attribute name="title" required="true" %>
 <title>Captain's Log${title}</title>
+<base href="${pageContext.request.contextPath }" />
 <link rel="stylesheet" href="../css/style.css" type="text/css" />
 <script language="JavaScript" type="text/JavaScript" src="../js/site.js"></script>
 </head>
@@ -13,26 +14,26 @@
 	<div id="header">
 		<div id="menu-left">
 			<div class="menuitem-left">
-				<a href="./">Captain's Log</a>
+				<a href="">Captain's Log</a>
 			</div>
 			<div class="menuitem-left">
 				<!-- View all blogs page -->
-				<a href="./ShowAllBlogs">Blogs</a>
+				<a href="${pageContext.request.contextPath }/ShowAllBlogs">Blogs</a>
 			</div>
 			<div class="menuitem-right">
 				<c:choose>
   					<c:when test="${user == null}">
-						<a href="./login.jsp">Login</a></c:when>
+						<a href="${pageContext.request.contextPath }/ShowLoginPage">Login</a></c:when>
   					<c:otherwise>
-  						${user}</c:otherwise>
+  						${user.username}</c:otherwise>
 				</c:choose>
 			</div>
 			<div class="menuitem-right">
 				<c:choose>
   					<c:when test="${user == null}">
-						<a href="./register.jsp">Register</a></c:when>
+						<a href="${pageContext.request.contextPath }/register.jsp">Register</a></c:when>
   					<c:otherwise>
-  						<a href="./Logout">Logout</a></c:otherwise>
+  						<a href="${pageContext.request.contextPath }/Logout">Logout</a></c:otherwise>
 				</c:choose>
 			</div>
 		</div>

@@ -11,7 +11,7 @@
 			</c:forEach>
 		</c:if>
 	</div>
-	<form method="POST" action="./Register">
+	<form method="POST" action="${pageContext.request.contextPath }/Register">
 		<div class="form_left">
 			Username:</div>
 		<div class="form_right">

@@ -21,7 +21,7 @@
     <web-resource-collection>
       <web-resource-name>login_pages</web-resource-name>
       <url-pattern>/WEB-INF/login.jsp</url-pattern>
-      <url-pattern>/Login</url-pattern>
+      <url-pattern>/Login/</url-pattern>
       <http-method>GET</http-method>
       <http-method>POST</http-method>
     </web-resource-collection>
@@ -33,7 +33,7 @@
     <auth-method>FORM</auth-method>
     <form-login-config>
       <form-login-page>/WEB-INF/login.jsp</form-login-page>
-      <form-error-page>/WEB-INF/login.jsp</form-error-page>
+      <form-error-page>/WEB-INF/errors/forbidden.jsp</form-error-page>
     </form-login-config>
   </login-config>
   <servlet>
@@ -51,5 +51,13 @@
   <servlet-mapping>
     <servlet-name>ViewAllBlogs</servlet-name>
     <url-pattern>/blogs/all</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>Register</servlet-name>
+    <servlet-class>servlets.CreateBlogger</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Register</servlet-name>
+    <url-pattern>/Register</url-pattern>
   </servlet-mapping>
 </web-app>

@@ -1,30 +1,23 @@
 package servlets;
 
 import java.io.IOException;
-
-import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import managers.BloggerManager;
-
 /**
- * Servlet implementation class ViewBlogger
+ * Servlet implementation class ShowLoginPage
  */
-@WebServlet("/ViewBlogger/*")
-public class ViewBlogger extends HttpServlet {
+@WebServlet("/ShowLoginPage")
+public class ShowLoginPage extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-	@EJB
-	BloggerManager bm;
-	
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ViewBlogger() {
+    public ShowLoginPage() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -33,15 +26,7 @@ public class ViewBlogger extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		try {
-			int id = Integer.parseInt(request.getPathInfo());
-			request.setAttribute("user", bm.getBlogger(id));
-		}
-		catch(Exception e) {
-			response.sendError(HttpServletResponse.SC_BAD_REQUEST);
-		}
-		
-		request.getRequestDispatcher("/WEB-INF/viewblogger.jsp").forward(request, response);
+		request.getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
 	}
 
 }
