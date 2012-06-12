@@ -23,7 +23,7 @@
 			<div class="menuitem-right">
 				<c:choose>
   					<c:when test="${user == null}">
-						<a href="${pageContext.request.contextPath }/ShowLoginPage">Login</a></c:when>
+						<a href="${pageContext.request.contextPath }/login.jsp">Login</a></c:when>
   					<c:otherwise>
   						${user.username}</c:otherwise>
 				</c:choose>

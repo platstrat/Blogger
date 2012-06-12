@@ -2,6 +2,7 @@ package servlets;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -16,13 +17,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 import javax.transaction.UserTransaction;
 
 import managers.BloggerManager;
 
 import entities.Blogger;
+import entities.BloggerGroup;
 
 /**
  * Servlet implementation class CreateBlogger
@@ -52,12 +52,6 @@ public class CreateBlogger extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		HttpSession session = request.getSession(false);
-		if (session != null){
-			request.logout();
-			session.invalidate();
-		}
-		
 		List<String> errors = new ArrayList<>();
 		
 		String username = request.getParameter("username");
@@ -96,18 +90,29 @@ public class CreateBlogger extends HttpServlet {
 			user.setRegistered(new java.util.Date());
 			bm.create(user);
 			
-			request.getSession().setAttribute("user", user);
+			List<BloggerGroup> groups = em.createQuery("SELECT g from BloggerGroup g WHERE g.name='bloggers'",
+												BloggerGroup.class).getResultList();
+			for (BloggerGroup g : groups){
+				g.getBloggers().add(user);
+			}
+			user.setGroups(new HashSet<>(groups));
 			
 			em.flush();
 			utx.commit();
 			
+			HttpSession session = request.getSession(false);
+			if (session != null){
+				request.logout();
+				session.invalidate();
+			}
+			
+			request.getSession().setAttribute("user", user);
+			
 			request.login(username, password);
 			request.getRequestDispatcher("/WEB-INF/viewblogger.jsp").forward(request, response);
 		} catch (Exception commit){
-			JFrame frame = new JFrame();
-			frame.setBounds(0,0,100,100);
-			frame.setVisible(true);
-			JOptionPane.showMessageDialog(frame, commit.getCause());
+			System.err.println(commit.getCause());
+			System.err.println(commit.getClass());
 			try{
 				utx.rollback();
 			} catch (Exception rollback){ 

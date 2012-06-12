@@ -2,6 +2,7 @@ package entities;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -54,7 +55,7 @@ public class Blogger
 	private List<Rating> ratings;
 	
 	@ManyToMany
-	private List<BloggerGroup> groups;
+	private Set<BloggerGroup> groups;
 	
 	public Blogger(){} 
 
@@ -135,11 +136,11 @@ public class Blogger
 		this.ratings = ratings;
 	}
 	
-	public List<BloggerGroup> getGroups() {
+	public Set<BloggerGroup> getGroups() {
 		return groups;
 	}
 	
-	public void setGroups(List<BloggerGroup> groups) {
+	public void setGroups(Set<BloggerGroup> groups) {
 		this.groups = groups;
 	}
 }

@@ -20,7 +20,7 @@
     <display-name>Login Pages</display-name>
     <web-resource-collection>
       <web-resource-name>login_pages</web-resource-name>
-      <url-pattern>/WEB-INF/login.jsp</url-pattern>
+      <url-pattern>/login.jsp</url-pattern>
       <url-pattern>/Login/</url-pattern>
       <http-method>GET</http-method>
       <http-method>POST</http-method>
@@ -32,7 +32,7 @@
   <login-config>
     <auth-method>FORM</auth-method>
     <form-login-config>
-      <form-login-page>/WEB-INF/login.jsp</form-login-page>
+      <form-login-page>/login.jsp</form-login-page>
       <form-error-page>/WEB-INF/errors/forbidden.jsp</form-error-page>
     </form-login-config>
   </login-config>

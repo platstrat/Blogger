@@ -10,15 +10,20 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.NamedQuery;
+import javax.persistence.Table;
 
 @Entity
 @NamedQuery(name = "groupByName",
 			query = "select g from BloggerGroup g where g.name = :groupName")
+@Table(name = "groups")
 public class BloggerGroup implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue
+	@Column(name = "id",
+			unique = true,
+			nullable = false)
 	private int id;
 	
 	@Column(unique = true, nullable = false)
