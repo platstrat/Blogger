@@ -2,16 +2,20 @@ package entities;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+
+//import crypto.Encryption;
 
 @Entity
 @NamedQueries({
@@ -24,33 +28,35 @@ public class Blogger
 	@Id
 	@GeneratedValue
 	private int id;
-	
+
 	@Column(nullable=false, length=255)
 	private String username;
-	
+
 	@Column(nullable=false, length=255)
 	private String password;
-	
+
 	@Column(nullable=true)
 	private String email;
-	
+
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(updatable=false, nullable=false)
 	private Date registered;
-	
+
 	@Column(nullable=false)
 	private int posts;
-	
+
 	@OneToMany(mappedBy="blogger")
 	private List<Blog> blogs;
-	
+
 	@OneToMany(mappedBy="blogger")
 	private List<Comment> comments;
-	
+
 	@OneToMany(mappedBy="blogger")
 	private List<Rating> ratings;
-	
-	
+
+	@ManyToMany
+	private Set<BloggerGroup> groups;
+
 	public Blogger(){} 
 
 	public int getId() {
@@ -75,6 +81,11 @@ public class Blogger
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public void setClearPassword(String clearpassword){
+		String hashed = Encryption.digest(clearpassword);
+		this.setPassword(hashed);
 	}
 
 	public Date getRegistered() {
@@ -124,5 +135,12 @@ public class Blogger
 	public void setRatings(List<Rating> ratings) {
 		this.ratings = ratings;
 	}
-	
+
+	public Set<BloggerGroup> getGroups() {
+		return groups;
+	}
+
+	public void setGroups(Set<BloggerGroup> groups) {
+		this.groups = groups;
+	}
 }

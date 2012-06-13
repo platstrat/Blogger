@@ -37,16 +37,4 @@ public class BlogManager {
 	public void remove(int id) {
 		em.remove(getBlog(id));
 	}
-	public int getAverage(Blog b)
-	{
-		int count = 1, average = 0;
-		for(Rating r : b.getRatings())
-		{
-			average += r.getRating();
-			count++;
-		}
-		if(count > 1) count--;
-		
-		return average / count;
-	}
 }

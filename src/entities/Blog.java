@@ -8,13 +8,17 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity
-@NamedQuery(name="Blog.findAll", query="SELECT b FROM Blog b")
+@NamedQueries({
+	@NamedQuery(name="Blog.findAll", query="SELECT b FROM Blog b"),
+	})
+
 public class Blog 
 {
 	@Id
@@ -128,5 +132,13 @@ public class Blog
 
 	public void setRatings(List<Rating> ratings) {
 		this.ratings = ratings;
+	}
+	
+	public double getAverage() {
+		double average = 0;
+		for(Rating r : getRatings()) {
+			average += r.getRating();
+		}
+		return average;
 	}
 }

@@ -24,6 +24,14 @@ public class CreateBlog extends HttpServlet {
 	
 	@EJB
 	BlogManager bm;
+       
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public CreateBlog() {
+        super();
+        // TODO Auto-generated constructor stub
+    }
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		List<String> errors = new ArrayList<>();
@@ -32,8 +40,7 @@ public class CreateBlog extends HttpServlet {
 			errors.add("You must name your blog");
 		}
 		String type = request.getParameter("type");
-		if(type == null || type.isEmpty()) 
-		{
+		if(type == null || type.isEmpty()) {
 			errors.add("Must select a blog type");
 		}
 		String content = request.getParameter("content");
@@ -47,7 +54,7 @@ public class CreateBlog extends HttpServlet {
 		b.setTags(tags);
 		bm.create(b);
 		
-		request.setAttribute("blog", b);
+		request.getSession().setAttribute("blogs", bm.getBlogs());
 		request.getRequestDispatcher("/WEB-INF/viewblog.jsp").forward(request, response);
 	}
 

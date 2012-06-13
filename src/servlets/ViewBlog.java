@@ -35,7 +35,7 @@ public class ViewBlog extends HttpServlet
 			response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Entity not found");
 		}
 		request.setAttribute("blog", b);
-		request.setAttribute("average", bm.getAverage(b));
+//		request.setAttribute("average", bm.getAverage(b));
 		request.getRequestDispatcher("/viewblog.jsp").forward(request, response);
 	}
 }

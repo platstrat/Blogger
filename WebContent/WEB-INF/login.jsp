@@ -11,7 +11,7 @@
 			</c:forEach>
 		</c:if>
 	</div>
-	<form method="POST" action="j_security_check">
+	<form method="POST" action="${pageContext.request.contextPath }/j_security_check">
 		<div class="form_left">
 			Username:</div>
 		<div class="form_right">
@@ -19,7 +19,7 @@
 		<div class="form_left">
 			Password:</div>
 		<div class="form_right">
-			<input type="text" name="j_password" /></div>
+			<input type="password" name="j_password" /></div>
 		<div class="form_submit">
 			<input type="submit" value="Login" /></div>
 	</form>

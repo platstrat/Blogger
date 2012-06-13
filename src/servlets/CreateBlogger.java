@@ -2,6 +2,7 @@ package servlets;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -21,6 +22,7 @@ import javax.transaction.UserTransaction;
 import managers.BloggerManager;
 
 import entities.Blogger;
+import entities.BloggerGroup;
 
 /**
  * Servlet implementation class CreateBlogger
@@ -50,12 +52,6 @@ public class CreateBlogger extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		HttpSession session = request.getSession(false);
-		if (session != null){
-			request.logout();
-			session.invalidate();
-		}
-		
 		List<String> errors = new ArrayList<>();
 		
 		String username = request.getParameter("username");
@@ -63,24 +59,25 @@ public class CreateBlogger extends HttpServlet {
 			errors.add("Invalid name");
 		}
 		String password = request.getParameter("password");
-		if(username == null || username.isEmpty()) {
+		if(password == null || password.isEmpty()) {
 			errors.add("Invalid password");
 		}
 		String email = request.getParameter("email");
-		
-		if(errors.size() > 0) {
-			request.setAttribute("errors", errors);
-			request.getRequestDispatcher("showAllBloggers.do").forward(request, response);
-			return;
-		}
 		
 		try{
 			EntityManager em = emf.createEntityManager();
 			Query q = em.createNamedQuery("Blogger.username", Blogger.class);
 			q.setParameter("username", username);
 			if (q.getResultList().size() > 0){
-				request.setAttribute("duplicate", true);
-				errors.add("Duplicate username");
+				Blogger b = (Blogger)q.getResultList().get(0);
+				if(b.getUsername().equalsIgnoreCase(username)) {
+					request.setAttribute("duplicate", true);
+					errors.add("Duplicate username");
+				}
+			}
+			
+			if(errors.size() > 0) {
+				request.setAttribute("errors", errors);
 				request.getRequestDispatcher("register.jsp").forward(request, response);
 				return;
 			}
@@ -88,27 +85,41 @@ public class CreateBlogger extends HttpServlet {
 			utx.begin();
 			Blogger user = new Blogger();
 			user.setUsername(username);
-			user.setPassword(password);
+			user.setClearPassword(password);
 			user.setEmail(email);
 			user.setRegistered(new java.util.Date());
 			bm.create(user);
 			
-			request.getSession().setAttribute("user", user);
+			List<BloggerGroup> groups = em.createQuery("SELECT g from BloggerGroup g WHERE g.name='bloggers'",
+												BloggerGroup.class).getResultList();
+			for (BloggerGroup g : groups)
+			{
+				g.getBloggers().add(user);
+			}
+			user.setGroups(new HashSet<>(groups));
 			
 			em.flush();
 			utx.commit();
 			
+			HttpSession session = request.getSession(false);
+			if (session != null){
+				request.logout();
+				session.invalidate();
+			}
+			
+			request.getSession().setAttribute("user", user);
+			
 			request.login(username, password);
-//			response.sendRedirect(response.encodeRedirectURL("UserInfo"));
-			request.getRequestDispatcher("WEB-INF/viewblogger.jsp").forward(request, response);
+			request.getRequestDispatcher("/WEB-INF/viewblogger.jsp").forward(request, response);
 		} catch (Exception commit){
-			commit.printStackTrace();
-//			try{
-//				utx.rollback();
-//			} catch (Exception rollback){ 
-//				rollback.printStackTrace();
-//			}
-//			response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+			System.err.println(commit.getCause());
+			System.err.println(commit.getClass());
+			try{
+				utx.rollback();
+			} catch (Exception rollback){ 
+				rollback.printStackTrace();
+			}
+			response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 		}
 	}
 
