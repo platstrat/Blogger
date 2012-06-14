@@ -8,6 +8,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import entities.Blog;
+import entities.Blogger;
 import entities.Rating;
 
 @Stateless
@@ -25,7 +26,6 @@ public class BlogManager {
 	}
 	
 	public Blog create(Blog b) {
-		
 		em.persist(b);
 		return b;
 	}

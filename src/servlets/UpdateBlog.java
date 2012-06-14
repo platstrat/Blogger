@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import managers.BlogManager;
 
 import entities.Blog;
+import entities.Blogger;
 import entities.Rating;
 
 /**
@@ -35,8 +36,8 @@ public class UpdateBlog extends HttpServlet {
 		String content = request.getParameter("content");
 		String type = request.getParameter("type");
 		String tags = request.getParameter("tags");
-		int id = Integer.parseInt(request.getParameter("id"));
-		Blog b = bm.getBlog(id);
+		Blogger user = (Blogger) request.getSession().getAttribute("user"); 
+		Blog b = bm.getBlog(user.getBloggerId());
 		if(name == null || name.isEmpty() ||content == null || content.isEmpty())
 		{
 			String error = "Name/content cannot be empty!";
@@ -55,7 +56,7 @@ public class UpdateBlog extends HttpServlet {
 		}
 		else if (request.getParameter("delete") != null)
 		{
-			bm.remove(id);
+			//bm.remove(id);
 		}
 		request.getSession().setAttribute("blog", b);
 		request.getRequestDispatcher("viewblog.jsp").forward(request, response);

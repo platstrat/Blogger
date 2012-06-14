@@ -16,12 +16,12 @@ import entities.Blogger;
 /**
  * Servlet Filter implementation class BlogFilter
  */
-@WebFilter(urlPatterns={"/DeleteBlog"})
+@WebFilter(urlPatterns={"/CreateBlog","/DeleteBlog","/ViewBlogger/*","/Logout","/Blogs","/showAllBlogs","/UpdateBlog","/UpdateBlogger"})
 public class AuthorizationFilter implements Filter {
 
     /**
-     * /CreateBlog
-     * "/ViewBlogger/*","/logout.do","/Blogs","/ShowAllBlogs","/UpdateBlog","/UpdateBlogger"
+     * 
+     * 
      * Default constructor. 
      */
     public AuthorizationFilter() {
@@ -43,8 +43,7 @@ public class AuthorizationFilter implements Filter {
 		// place your code here
 		HttpServletRequest req = (HttpServletRequest)request;
 		Blogger blogger = (Blogger)req.getSession(false).getAttribute("user");
-		if(blogger==null||!blogger.getGroups().isEmpty() 
-			    || !blogger.getGroups().iterator().next().getName().equals(blogger))
+		if(blogger==null||blogger.getGroups().isEmpty())
 		{
 			HttpServletResponse res = (HttpServletResponse) response;
 			res.sendRedirect("register.jsp");

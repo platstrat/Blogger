@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import managers.BlogManager;
+import managers.BloggerManager;
 
 import entities.Blog;
 import entities.Blogger;
@@ -25,6 +26,8 @@ public class CreateBlog extends HttpServlet {
 	
 	@EJB
 	BlogManager bm;
+	@EJB
+	BloggerManager blm;
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -64,7 +67,10 @@ public class CreateBlog extends HttpServlet {
 		b.setTags(tags.split(","));
 		b.getBlogger().setPosts(b.getBlogger().getPosts() + 1);
 		bm.create(b);
-		
+		List<Blog> blogs = blogger.getBlogs();
+		blogs.add(b);
+		blogger.setBlogs(blogs);
+		blm.update(blogger);
 		request.getSession().setAttribute("blog", b);
 		response.sendRedirect("viewblog.jsp");
 	}

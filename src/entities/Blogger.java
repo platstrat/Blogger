@@ -1,5 +1,6 @@
 package entities;
 
+import static javax.persistence.CascadeType.ALL;
 import java.util.Date;
 import java.util.List;
 
@@ -54,9 +55,11 @@ public class Blogger
 	private List<Blog> blogs;
 	
 	@OneToMany(mappedBy="blogger")
+	@JoinTable(name = "comments_list")
 	private List<Comment> comments;
 	
 	@OneToMany(mappedBy="blogger")
+	@JoinTable(name = "ratings_list")
 	private List<Rating> ratings;
 	
 	@ManyToMany

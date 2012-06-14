@@ -23,6 +23,7 @@ import javax.transaction.UserTransaction;
 
 import managers.BloggerManager;
 
+import entities.Blog;
 import entities.Blogger;
 import entities.BloggerGroup;
 
@@ -93,6 +94,7 @@ public class CreateBlogger extends HttpServlet {
 			user.setClearPassword(password);
 			user.setEmail(email);
 			user.setRegistered(new java.util.Date());
+			user.setBlogs(new ArrayList<Blog>());
 			em.persist(user);
 			
 //			bm.create(user);
@@ -106,7 +108,10 @@ public class CreateBlogger extends HttpServlet {
 				group.setName("Users");
 				em.persist(group);
 				group.getBloggers().add(user);
+				groups.add(group);
 				user.setGroups(groups);
+				//em.persist(group);
+				
 			} 
 			else {
 				for (BloggerGroup g : groups) {
