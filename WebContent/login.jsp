@@ -11,15 +11,15 @@
 			</c:forEach>
 		</c:if>
 	</div>
-	<form method="POST" action="${pageContext.request.contextPath }/j_security_check">
+	<form method="POST" action="${pageContext.request.contextPath }/Login">
 		<div class="form_left">
 			Username:</div>
 		<div class="form_right">
-			<input type="text" name="j_username" /></div>
+			<input type="text" name="username" /></div>
 		<div class="form_left">
 			Password:</div>
 		<div class="form_right">
-			<input type="password" name="j_password" /></div>
+			<input type="password" name="password" /></div>
 		<div class="form_submit">
 			<input type="submit" value="Login" /></div>
 	</form>

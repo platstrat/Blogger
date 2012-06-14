@@ -11,7 +11,7 @@
 			</c:forEach>
 		</c:if>
 	</div>
-	<form method="POST" action="./CreateBlog">
+	<form method="POST" action="${pageContext.request.contextPath }/CreateBlog">
 		<c:if test="${name == null }">
 			<div class="form_error">REQUIRED</div></c:if>
 		<div class="form_left">
@@ -25,10 +25,22 @@
 			Type:</div>
 		<div class="form_right">
 			<select name="type">
-  				<option value=null>...</option>
-  				<c:forEach var="option" items="${options }">
-					<option value="${option }">${option }</option>
-				</c:forEach></select></div>
+    <option value="Art">Art</option>
+    <option value="Business">Business</option>
+    <option value="Education">Education</option>
+    <option value="Electronics">Electronics</option>
+    <option value="Film">Film</option>
+      <option value="Health">Health</option>
+      <option value="Life">Life</option>
+      <option value="Games">Games</option>
+      <option value="Literature">Literature</option>
+      <option value="Money">Money</option>
+      <option value="Politics">Politics</option>
+      <option value="Romance">Romance</option>
+      <option value="Sports">Sports</option>
+      <option value="Technology">Technology</option>
+      <option value="Other">Other</option>
+    </select></div>
 		<div class="form_left">
 			Tags:</div>
 		<div class="form_right">
@@ -38,7 +50,7 @@
 		<div class="form_left">
 			Contents:</div>
 		<div class="form_right">
-			<input type="text" multiple="multiple" name="content" /></div>
+			<textarea rows="2" cols="30" name="content" ></textarea></div>
 		<div class="form_submit">
 			<input type="submit" value="Create Blog" /></div>
 	</form>

@@ -35,7 +35,7 @@ public class UpdateBlog extends HttpServlet {
 		b.setName(request.getParameter("name"));
 		b.setType(request.getParameter("type"));
 		b.setContent(request.getParameter("content"));
-		b.setTags(request.getParameter("tags"));
+		b.setTags(request.getParameter("tags").split(","));
 		b.setEdited(new java.util.Date());
 		bm.update(b);
 		

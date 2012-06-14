@@ -118,7 +118,7 @@ public class CreateBlogger extends HttpServlet {
 			em.flush();
 			utx.commit();
 			System.out.println("OK");
-//			if(true)return;
+			//if(true)return;
 
 			HttpSession session = request.getSession(false);
 			if (session != null) {
@@ -129,7 +129,7 @@ public class CreateBlogger extends HttpServlet {
 			request.getSession().setAttribute("user", user);
 
 			request.login(username, password);
-			request.getRequestDispatcher("/WEB-INF/viewblogger.jsp").forward(
+			request.getRequestDispatcher("index.jsp").forward(
 					request, response);
 		} catch (Exception commit) {
 			commit.printStackTrace();

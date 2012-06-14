@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import managers.BlogManager;
 
 import entities.Blog;
+import entities.Blogger;
 
 /**
  * Servlet implementation class CreateBlog
@@ -32,7 +33,12 @@ public class CreateBlog extends HttpServlet {
         super();
         // TODO Auto-generated constructor stub
     }
-
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+    		throws ServletException, IOException
+    {
+    	request.getRequestDispatcher("/WEB-INF/createblog.jsp").forward(request, response);
+    }
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		List<String> errors = new ArrayList<>();
 		String name = request.getParameter("name");
@@ -47,15 +53,16 @@ public class CreateBlog extends HttpServlet {
 		String tags = request.getParameter("tags");
 		
 		Blog b = new Blog();
+		b.setBlogger((Blogger)request.getSession(false).getAttribute("user"));
 		b.setName(name);
 		b.setType(type);
 		b.setContent(content);
 		b.setCreated(new java.util.Date());
-		b.setTags(tags);
+		b.setTags(tags.split(","));
 		bm.create(b);
 		
 		request.getSession().setAttribute("blogs", bm.getBlogs());
-		request.getRequestDispatcher("/WEB-INF/viewblog.jsp").forward(request, response);
+		response.sendRedirect("viewblog.jsp");
 	}
 
 }

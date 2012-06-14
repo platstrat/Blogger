@@ -44,13 +44,15 @@ public class Blog
     @Temporal(TemporalType.TIMESTAMP)
     private Date created;
     
-    @Column(nullable=false)
+    @Column(nullable=true)
     @Temporal(TemporalType.TIMESTAMP)
     private Date edited;
     
+    
 	private String type;
 	
-	private String tags;
+    
+	private String[] tags;
 	
 	public Blog(){}
 
@@ -78,11 +80,11 @@ public class Blog
 		this.content = content;
 	}
 	
-	public String getTags() {
+	public String[] getTags() {
 		return tags;
 	}
 	
-	public void setTags(String tags) {
+	public void setTags(String[] tags) {
 		this.tags = tags;
 	}
 

@@ -16,10 +16,11 @@ import entities.Blogger;
 /**
  * Servlet Filter implementation class BlogFilter
  */
-@WebFilter(urlPatterns={"/CreateBlog","/DeleteBlog","/logout.do","/Blogs","/showAllBlogs.do","/UpdateBlog","/UpdateBlogger","/ViewBlogger/*"})
+@WebFilter(urlPatterns={"/DeleteBlog","/logout.do","/Blogs","/ShowAllBlogs","/UpdateBlog","/UpdateBlogger","/ViewBlogger/*"})
 public class AuthorizationFilter implements Filter {
 
     /**
+     * /CreateBlog
      * Default constructor. 
      */
     public AuthorizationFilter() {

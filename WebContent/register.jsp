@@ -19,7 +19,7 @@
 		<div class="form_left">
 			Password:</div>
 		<div class="form_right">
-			<input type="text" name="password" /></div>
+			<input type="password" name="password" /></div>
 		<div class="form_left">
 			Email:</div>
 		<div class="form_right">
