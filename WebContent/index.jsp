@@ -11,6 +11,7 @@
 			</div>
 		</c:forEach>
 	</div>
+	Name:${sessionContext.name}
 	<div id="top_blogs">
 		<c:forEach var="blog" items="${top_blogs }">
 		<!-- Change to be the last 5-10 created blogs -->

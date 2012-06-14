@@ -10,18 +10,23 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.NamedQuery;
+import javax.persistence.Table;
 
 @Entity
 @NamedQuery(name = "groupByName",
 			query = "select g from BloggerGroup g where g.name = :groupName")
+@Table(name = "groups")
 public class BloggerGroup implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue
-	private int id;
+	@Column(name = "group_id",
+			unique = true,
+			nullable = false)
+	private int groupId;
 	
-	@Column(unique = true, nullable = false)
+	@Column(name ="name", unique = true, nullable = false)
 	private String name;
 	
 	@ManyToMany(mappedBy = "groups")
@@ -29,14 +34,14 @@ public class BloggerGroup implements Serializable{
 	
 	public BloggerGroup(){}
 	
-	public int getId(){
-		return this.id;
+	public int getGroupId() {
+		return groupId;
 	}
-	
-	public void setId(int id){
-		this.id = id;
+
+	public void setGroupId(int groupId) {
+		this.groupId = groupId;
 	}
-	
+
 	public String getName(){
 		return this.name;
 	}

@@ -39,7 +39,19 @@ public class UpdateBlogRating extends HttpServlet {
 		}
 
 		request.setAttribute("blog", b);
-//		request.setAttribute("average", bm.getAverage(b));
+		request.setAttribute("average", getAverage(b));
 		request.getRequestDispatcher("/WEB-INF/viewblog.jsp").forward(request, response);
+	}
+	private int getAverage(Blog b)
+	{
+		int count = 1, average = 0;
+		for(Rating r : b.getRatings())
+		{
+			average += r.getRating();
+			count++;
+		}
+		if(count > 1) count--;
+		
+		return average / count;
 	}
 }

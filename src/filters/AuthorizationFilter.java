@@ -41,8 +41,8 @@ public class AuthorizationFilter implements Filter {
 		// place your code here
 		HttpServletRequest req = (HttpServletRequest)request;
 		Blogger blogger = (Blogger)req.getSession(false).getAttribute("user");
-		if(blogger==null|| !blogger.getGroups().isEmpty() 
-				|| !blogger.getGroups().iterator().next().getName().equals(blogger))
+		if(blogger==null||!blogger.getGroups().isEmpty() 
+			    || !blogger.getGroups().iterator().next().getName().equals(blogger))
 		{
 			HttpServletResponse res = (HttpServletResponse) response;
 			res.sendRedirect("register.jsp");
