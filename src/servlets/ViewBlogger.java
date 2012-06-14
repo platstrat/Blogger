@@ -33,8 +33,10 @@ public class ViewBlogger extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		try {
-			int id = Integer.parseInt(request.getPathInfo());
+		try 
+		{
+			int id = Integer.parseInt(request.getPathInfo().replace("/", ""));
+			System.out.println(id);
 			request.setAttribute("user", bm.getBlogger(id));
 		}
 		catch(Exception e) {

@@ -13,12 +13,13 @@ import managers.BlogManager;
 import org.jboss.weld.context.ejb.Ejb;
 
 import entities.Blog;
+import entities.Blogger;
 import entities.Rating;
 
 /**
  * Servlet implementation class ShowBlog
  */
-@WebServlet("/ViewBlog")
+@WebServlet("/ViewBlog/*")
 public class ViewBlog extends HttpServlet
 {
 	private static final long serialVersionUID = 1L;
@@ -27,11 +28,14 @@ public class ViewBlog extends HttpServlet
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
 	{
-		int id = Integer.parseInt(request.getParameter("id"));
+		Blogger user = (Blogger) request.getAttribute("user");
+		
+		int id = Integer.parseInt(request.getPathInfo().replace("/", ""));
 		Blog b = blogManager.getBlog(id);
 		if (b == null){
 			response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Entity not found");
 		}
+		request.setAttribute("user", user);
 		request.setAttribute("blog", b);
 		request.setAttribute("average", getAverage(b));
 		request.getRequestDispatcher("/viewblog.jsp").forward(request, response);

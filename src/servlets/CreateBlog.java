@@ -53,15 +53,19 @@ public class CreateBlog extends HttpServlet {
 		String tags = request.getParameter("tags");
 		
 		Blog b = new Blog();
-		b.setBlogger((Blogger)request.getSession(false).getAttribute("user"));
+		Blogger blogger = (Blogger)request.getSession(false).getAttribute("user");
+		
+		b.setBlogger(blogger);
 		b.setName(name);
 		b.setType(type);
 		b.setContent(content);
 		b.setCreated(new java.util.Date());
+		b.setEdited(new java.util.Date());
 		b.setTags(tags.split(","));
+		b.getBlogger().setPosts(b.getBlogger().getPosts() + 1);
 		bm.create(b);
 		
-		request.getSession().setAttribute("blogs", bm.getBlogs());
+		request.getSession().setAttribute("blog", b);
 		response.sendRedirect("viewblog.jsp");
 	}
 

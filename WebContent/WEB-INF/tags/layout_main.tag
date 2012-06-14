@@ -7,7 +7,7 @@
 <%@ attribute name="title" required="true" %>
 <title>Captain's Log${title}</title>
 <base href="${pageContext.request.contextPath }" />
-<link rel="stylesheet" href="../css/style.css" type="text/css" />
+<link rel="stylesheet" href="${pageContext.request.contextPath }/css/style.css" type="text/css" />
 <script language="JavaScript" type="text/JavaScript" src="../js/site.js"></script>
 </head>
 <body>
@@ -25,7 +25,7 @@
   					<c:when test="${user == null}">
 						<a href="${pageContext.request.contextPath }/login.jsp">Login</a></c:when>
   					<c:otherwise>
-  						${user.username}</c:otherwise>
+  						<a href="${pageContext.request.contextPath }/ViewBlogger/${user.bloggerId}">${user.username}</a></c:otherwise>
 				</c:choose>
 			</div>
 			<div class="menuitem-right">

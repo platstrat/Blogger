@@ -36,28 +36,4 @@
       <form-error-page>/WEB-INF/errors/forbidden.jsp</form-error-page>
     </form-login-config>
   </login-config>
-  <servlet>
-    <servlet-name>ViewBlogger</servlet-name>
-    <servlet-class>servlets.ViewBlogger</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>ViewBlogger</servlet-name>
-    <url-pattern>/user/edit/*</url-pattern>
-  </servlet-mapping>
-  <servlet>
-    <servlet-name>ViewAllBlogs</servlet-name>
-    <servlet-class>servlets.ViewAllBlogs</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>ViewAllBlogs</servlet-name>
-    <url-pattern>/blogs/all</url-pattern>
-  </servlet-mapping>
-  <servlet>
-    <servlet-name>Register</servlet-name>
-    <servlet-class>servlets.CreateBlogger</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>Register</servlet-name>
-    <url-pattern>/Register</url-pattern>
-  </servlet-mapping>
 </web-app>

@@ -25,6 +25,7 @@ public class BlogManager {
 	}
 	
 	public Blog create(Blog b) {
+		
 		em.persist(b);
 		return b;
 	}

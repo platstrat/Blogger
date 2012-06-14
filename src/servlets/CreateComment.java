@@ -45,7 +45,7 @@ public class CreateComment extends HttpServlet {
 		
 		request.setAttribute("blog", b);
 		request.setAttribute("average", b.getAverage());
-		request.getRequestDispatcher("/WEB-INF/viewblog.jsp").forward(request, response);
+		response.sendRedirect("viewblog.jsp");
 	}
 
 }

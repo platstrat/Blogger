@@ -44,7 +44,7 @@ public class Blog
     @Temporal(TemporalType.TIMESTAMP)
     private Date created;
     
-    @Column(nullable=true)
+    @Column(nullable=false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date edited;
     

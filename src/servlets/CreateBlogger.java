@@ -129,8 +129,7 @@ public class CreateBlogger extends HttpServlet {
 			request.getSession().setAttribute("user", user);
 
 			request.login(username, password);
-			request.getRequestDispatcher("index.jsp").forward(
-					request, response);
+			response.sendRedirect("index.jsp");
 		} catch (Exception commit) {
 			commit.printStackTrace();
 			try {

@@ -8,18 +8,18 @@
 <title>Create Comment</title>
 </head>
 <body>
-	<div id="form_errors">
-		<c:if test="${errors != null }">
-			The following errors have occurred:
-			<c:forEach var="error" items="${errors }">
-				<div class="form_error">* ${error }</div>
-			</c:forEach>
-		</c:if>
-	</div>
-	<form action="/CreateComment">
-		Comment Content:
-		<input type="text" multiple="multiple" name="content" />
-		<input type ="submit" value ="Add Comment">
-	</form>
+ <div id="form_errors">
+  <c:if test="${errors != null }">
+   The following errors have occurred:
+   <c:forEach var="error" items="${errors }">
+    <div class="form_error">* ${error }</div>
+   </c:forEach>
+  </c:if>
+ </div>
+ <form action="${pageContext.request.contextPath }/CreateComment">
+  Comment Content:
+  <textarea rows="2" cols="30" name="content" ></textarea>
+  <input type ="submit" value ="Add Comment">
+ </form>
 </body>
 </html>

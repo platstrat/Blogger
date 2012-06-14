@@ -1,0 +1,87 @@
+@CHARSET "ISO-8859-1";
+/** Basic Site CSS **/
+body{
+ background-color:white;
+ font-size: 14px;
+ margin: 0px;
+ padding: 0px;
+}
+#header {
+ background-color: rgb(45, 45, 45);
+ height: 30px
+ list-style: none;
+ border-bottom: 1px solid black;
+}
+#content {
+ margin-top: 1%;
+ margin-left: auto;
+ marjin-right: auto;
+ min-width: 600px;
+ width:600px;
+ max-width:800px;
+}
+#footer {
+ position: absolute;
+ bottom:0px;
+ width:100%;
+ height:18px;
+ vertical-align:middle;
+ border-top: 1px solid rgb(235, 235, 235);
+}
+
+/** Main Menu **/
+#menu_left, #menu_right {
+ display:inline;
+}
+#menu_left {
+ 
+}
+#menu_right {
+ float:right;
+}
+.menuitem_left, .menuitem_right {
+ display:inline;
+ padding: 0px 5px 0px 5px;
+ font-size:10px;
+}
+.menuitem_left {
+ 
+}
+.menuitem_right {
+ 
+}
+.menuitem_left a, .menuitem_right a {
+ text-decoration: none;
+ font-family: Calibri, Arial, Helvetica, sans-serif;
+ font-size:20px;
+ font-weight:bold;
+ color: rgb(200, 200, 200);
+}
+
+.menuitem_left a:hover, .menuitem_right a:hover {
+ color:white;
+ text-shadow: black 0.1em 0.1em 0.2em
+}
+
+/** Form CSS **/
+#form_errors{
+ 
+}
+.form_error {
+ 
+}
+.form_left {
+ float:left;
+ width:80px;
+}
+.form_right {
+ margin: 5px 0px 0px 0px;
+}
+.form_submit {
+ 
+}
+
+/** Shortcut stuff **/
+.blog_summary {
+ 
+}

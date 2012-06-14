@@ -3,9 +3,12 @@
 <%@ taglib tagdir="/WEB-INF/tags" prefix="layouts"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <layouts:layout_main title=" - All Blogs">
-	<c:forEach var="blog" items="${all_blogs }">
+	<c:forEach var="blog" items="${blogs }">
 		<div class="blog_summary">
-			(${blog.created }) ${blog.name } - ${block.comments } Comment(s) - Last Edited On: ${blog.edited }
+			Name: ${blog.name } 
+			Blog - Last Edited On: ${blog.edited }
+			<layouts:all_comments blog="${blog}">
+			</layouts:all_comments>
 		</div>
 	</c:forEach>
 </layouts:layout_main>

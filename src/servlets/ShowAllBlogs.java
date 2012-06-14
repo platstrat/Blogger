@@ -17,7 +17,7 @@ import entities.Blog;
 /**
  * Servlet implementation class ShowAllBlogs
  */
-@WebServlet("/showAllBlogs.do")
+@WebServlet("/showAllBlogs")
 public class ShowAllBlogs extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
@@ -25,7 +25,7 @@ public class ShowAllBlogs extends HttpServlet {
 	BlogManager blogManager;
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    	request.setAttribute("allblogs", blogManager.getBlogs());
+    	request.setAttribute("blogs", blogManager.getBlogs());
 		request.getRequestDispatcher("viewallblogs.jsp").forward(request, response);
 	}
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 

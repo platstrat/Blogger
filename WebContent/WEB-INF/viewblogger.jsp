@@ -6,8 +6,12 @@
 	<div hidden="hidden">
 		${user.bloggerId }</div>
 	<h1>User information:</h1>
-	User Name: ${user.username }
-	Password: ${user.password }
+	Display Name: ${user.username }<br/>
 	Email: ${user.email }
 	<a href="/users/edit/${user.bloggerId }">Edit</a>
+	Blogs:
+	<c:forEach var="blog" items="${user.blogs }">
+	<a href="ViewBlog/${blog.id }">${blog.name }</a>
+	</c:forEach>
+	<a href="${pageContext.request.contextPath }/CreateBlog">New Blog</a>
 </layouts:layout_main>
