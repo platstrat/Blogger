@@ -31,15 +31,33 @@ public class UpdateBlog extends HttpServlet {
         super();
     }
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		Blog b = bm.getBlog(Integer.parseInt(request.getParameter("id")));
-		b.setName(request.getParameter("name"));
-		b.setType(request.getParameter("type"));
-		b.setContent(request.getParameter("content"));
-		b.setTags(request.getParameter("tags").split(","));
-		b.setEdited(new java.util.Date());
-		bm.update(b);
-		
-		request.getSession().setAttribute("blogs", bm.getBlogs());
-		request.getRequestDispatcher("/WEB-INF/viewallblogs.jsp").forward(request, response);
+		String name = request.getParameter("name");
+		String content = request.getParameter("content");
+		String type = request.getParameter("type");
+		String tags = request.getParameter("tags");
+		int id = Integer.parseInt(request.getParameter("id"));
+		Blog b = bm.getBlog(id);
+		if(name == null || name.isEmpty() ||content == null || content.isEmpty())
+		{
+			String error = "Name/content cannot be empty!";
+			request.setAttribute("error", error);
+		}
+		if (request.getParameter("change") != null && name != null && !name.isEmpty() && content != null && !content.isEmpty())
+		{
+			b.setName(name);
+			b.setContent(content);
+			if(!type.isEmpty() || type != null)
+				b.setType(type);
+			if(!tags.isEmpty() || tags != null)
+				b.setTags(tags.split(","));
+			b.setEdited(new java.util.Date());
+			bm.update(b);
+		}
+		else if (request.getParameter("delete") != null)
+		{
+			bm.remove(id);
+		}
+		request.getSession().setAttribute("blog", b);
+		request.getRequestDispatcher("viewblog.jsp").forward(request, response);
 	}
 }

@@ -28,7 +28,7 @@
 <c:choose>
 	<c:when test="${blog.blogger.username == user.username}"> 
 	<form method="post" action ="/UpdateBlog">
-		<c:param name="id" value="${blog.id }" />
+		
 		<div class="form_left">Name:</div>
 		<div class="form_right">
 			<input type="text" name="name" /> 
@@ -39,8 +39,9 @@
 			<option value=null>...</option> 
 			<c:forEach var="option" items="${options }">
 				<option value="${option }">${option }</option>\ 
-				</c:forEach>
-			</select></div>
+			</c:forEach>
+			</select>
+		</div>
 		<div class="form_left">Tags:</div>
 		<div class="form_right">
 			<input type="text" name="tags" />
@@ -48,10 +49,13 @@
 		<div class="form_note">Separate tags with a ','</div>
 		<div class="form_left"> Contents:</div>
 		<div class="form_right">
-			<input type="text" multiple="multiple" name="content" /></div> 
-		<div class="form_submit"><input type="submit" value="Update Blog" /></div>
-		<input type="submit" value="Change Blog" name="change">
-    <input type="submit" value="Delete Blog" name="delete">
+			<input type="text" multiple="multiple" name="content" />
+		</div> 
+		<div class="form_submit">
+			<input type="submit" value="Update Blog" />
+	    	<input type="submit" value="Delete Blog" name="delete">
+	    </div>
+		
 	</form>
 	</c:when>
 </c:choose>
