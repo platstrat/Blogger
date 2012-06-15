@@ -65,7 +65,7 @@ public class CreateBlog extends HttpServlet {
 		b.setCreated(new java.util.Date());
 		b.setEdited(new java.util.Date());
 		b.setTags(tags.split(","));
-		b.getBlogger().setPosts(b.getBlogger().getPosts() + 1);
+		blogger.setPosts(blogger.getPosts() + 1);
 		bm.create(b);
 		List<Blog> blogs = blogger.getBlogs();
 		blogs.add(b);

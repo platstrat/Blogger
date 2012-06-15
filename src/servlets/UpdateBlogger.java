@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import managers.BloggerManager;
 
@@ -39,28 +40,36 @@ public class UpdateBlogger extends HttpServlet {
 	  	String password = request.getParameter("password");
 	  	String email = request.getParameter("email");
 		Blogger user = bm.getBlogger(id);
-		if(name == null || name.isEmpty()  || password == null || password.isEmpty())
+		if(request.getParameter("delete") != null)
 		{
-			String error = "Name/password cannot be empty";
-			request.setAttribute("error", error);
+			bm.remove(id);
+			request.logout();
+			HttpSession session = request.getSession(false);
+			if(session != null) session.invalidate();
+			response.sendRedirect(request.getContextPath()+"/index.jsp");
 		}
 		else
 		{
-			if(request.getParameter("delete") != null)
+			if(name == null || name.isEmpty()  || password == null || password.isEmpty())
 			{
-				bm.remove(id);
+				String error = "Name/password cannot be empty";
+				request.setAttribute("error", error);
+				response.sendRedirect(request.getContextPath()+"/ViewBlogger/"+ id);
 			}
 			else
 			{
-				user.setUsername(request.getParameter("username"));
-				user.setPassword(request.getParameter("password"));
-				user.setEmail(request.getParameter("email"));
+				user.setUsername(name);
+				user.setClearPassword(password);
+				user.setEmail(email);
 				bm.update(user);
+				request.getSession().setAttribute("user", user);
+				response.sendRedirect(request.getContextPath()+"/ViewBlogger/"+ id);
 			}
 		}
+		
+		
 		//System.out.println("User: " + user.getUsername());
-		request.getSession().setAttribute("user", user);
-		response.sendRedirect(request.getContextPath()+"/ViewBlogger/"+ id);
+		
 	}
 
 }

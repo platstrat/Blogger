@@ -39,7 +39,7 @@ public class UpdateBlog extends HttpServlet {
 		String content = request.getParameter("content");
 		String type = request.getParameter("type");
 		String tags = request.getParameter("tags");
-		Blogger user = (Blogger) request.getSession().getAttribute("user"); 
+		Blogger user = (Blogger) request.getSession(false).getAttribute("user"); 
 		Blog b = bm.getBlog(Integer.parseInt(request.getPathInfo().replace("/", "")));
 		if(name == null || name.isEmpty() ||content == null || content.isEmpty())
 		{
@@ -59,18 +59,28 @@ public class UpdateBlog extends HttpServlet {
 		}
 		if (request.getParameter("delete") != null)
 		{
-			bm.getBlogs().remove(b);
-			bm.remove(b.getId());
 			List<Blog> blogs = user.getBlogs();
+			for(Blog bl: blogs)
+			{
+				System.out.println(bl);
+			}
 			blogs.remove(b);
+			for(Blog bl: blogs)
+			{
+				System.out.println(bl);
+			}
+			//bm.getBlogs().remove(b);
+			bm.remove(b.getId());
+			request.getSession().setAttribute("blog", null);
+			//blogs.remove(b);
 			user.setBlogs(blogs);
 			um.update(user);
-			request.getSession().setAttribute("user", user);
+			request.getSession(false).setAttribute("user", user);
 			response.sendRedirect(request.getContextPath()+"/ViewBlogger/"+ user.getBloggerId());
 		  	return;
 
 		}
-		request.getSession().setAttribute("blog", b);
+		request.setAttribute("blog", b);
 		response.sendRedirect(request.getContextPath()+"/ViewBlog/"+ b.getId());
 	}
 }

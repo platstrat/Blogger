@@ -9,6 +9,7 @@
 	Display Name: ${user.username }<br/>
 	Email: ${user.email }
 	Blogs:
+	<c:if test="${user.blogs.size() >0 }">LOLNOPE</c:if>
 	<c:forEach var="blog" items="${user.blogs }">
 	<a href="${pageContext.request.contextPath }/ViewBlog/${blog.id }">${blog.name }</a>
 	</c:forEach>
