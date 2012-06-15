@@ -1,6 +1,7 @@
 package servlets;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -17,7 +18,7 @@ import entities.Rating;
 /**
  * Servlet implementation class UpdateBlogRating
  */
-@WebServlet("/UpdateRating")
+@WebServlet("/UpdateRating/*")
 public class UpdateBlogRating extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -28,30 +29,22 @@ public class UpdateBlogRating extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
 	{
 		String rating = request.getParameter("rating");
-		Blog b = bm.getBlog(Integer.parseInt(request.getParameter("id")));
+		Blog b = bm.getBlog(Integer.parseInt(request.getPathInfo().replace("/", "")));
 		if(rating != null)
 		{
 			Rating r = new Rating();
 			r.setBlog(b);
 			r.setBlogger(b.getBlogger());
 			r.setRating(Integer.parseInt(rating));
-			b.getRatings().add(r);			
+			List<Rating> ratings = b.getRatings();
+			ratings.add(r);
+			b.setRatings(ratings);
+			bm.update(b);
+		
 		}
 
 		request.setAttribute("blog", b);
-		request.setAttribute("average", getAverage(b));
-		request.getRequestDispatcher("/WEB-INF/viewblog.jsp").forward(request, response);
-	}
-	private int getAverage(Blog b)
-	{
-		int count = 1, average = 0;
-		for(Rating r : b.getRatings())
-		{
-			average += r.getRating();
-			count++;
-		}
-		if(count > 1) count--;
-		
-		return average / count;
+		request.setAttribute("average", b.getAverage());
+		request.getRequestDispatcher("/viewblog.jsp").forward(request, response);
 	}
 }

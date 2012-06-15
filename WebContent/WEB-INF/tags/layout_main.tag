@@ -12,23 +12,23 @@
 </head>
 <body>
 	<div id="header">
-		<div id="menu-left">
-			<div class="menuitem-left">
+		<div id="menu_left">
+			<div class="menuitem_left">
 				<a href="">Captain's Log</a>
 			</div>
-			<div class="menuitem-left">
+			<div class="menuitem_left">
 				<!-- View all blogs page -->
 				<a href="${pageContext.request.contextPath }/ShowAllBlogs">Blogs</a>
 			</div>
-			<div class="menuitem-right">
+			<div class="menuitem_right">
 				<c:choose>
   					<c:when test="${user == null}">
 						<a href="${pageContext.request.contextPath }/login.jsp">Login</a></c:when>
   					<c:otherwise>
-  						<a href="${pageContext.request.contextPath }/ViewBlogger/${user.bloggerId}">${user.username}</a></c:otherwise>
+  						<a href="${pageContext.request.contextPath }/ViewBlogger/${user.bloggerId}">${user.username}'s Profile</a></c:otherwise>
 				</c:choose>
 			</div>
-			<div class="menuitem-right">
+			<div class="menuitem_right">
 				<c:choose>
   					<c:when test="${user == null}">
 						<a href="${pageContext.request.contextPath }/register.jsp">Register</a></c:when>
@@ -37,14 +37,14 @@
 				</c:choose>
 			</div>
 		</div>
-		<div id="menu-right">
+		<div id="menu_right">
 		</div>
 	</div>
 	<div id="content">
 		<jsp:doBody />
 	</div>
 	<div id="footer">
-		<div class="menuitem-left">
+		<div class="menuitem_left">
 			&copy; Neumont University 2012
 		</div>
 	</div>

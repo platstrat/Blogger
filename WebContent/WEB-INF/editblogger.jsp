@@ -13,7 +13,8 @@
 	</div>
 	<form method="POST" action="/UpdateBlogger">
 		<c:if test="${user.username == null }">
-			<div class="form_error">REQUIRED</div></c:if>
+			<div class="form_error">REQUIRED</div>
+		</c:if>
 		<div class="form_left">
 			Username:</div>
 		<div class="form_right">
@@ -30,6 +31,6 @@
 		<div class="form_right">
 			<input type="text" name="email" value="${user.email }" /></div>
 		<div class="form_submit">
-			<input type="submit" value="UpdateBlogger" /></div>
+			<input type="submit" value="Update Blogger" /></div>
 	</form>
 </layouts:layout_main>

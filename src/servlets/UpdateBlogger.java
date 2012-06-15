@@ -16,7 +16,7 @@ import entities.Blogger;
 /**
  * Servlet implementation class UpdateBlogger
  */
-@WebServlet("/UpdateBlogger")
+@WebServlet("/UpdateBlogger/*")
 public class UpdateBlogger extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -34,15 +34,33 @@ public class UpdateBlogger extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int id = Integer.parseInt(request.getParameter("id"));
+		int id = Integer.parseInt(request.getPathInfo().replace("/", ""));
+		String name = request.getParameter("username");
+	  	String password = request.getParameter("password");
+	  	String email = request.getParameter("email");
 		Blogger user = bm.getBlogger(id);
-		user.setUsername(request.getParameter("username"));
-		user.setPassword(request.getParameter("password"));
-		user.setEmail(request.getParameter("email"));
-		bm.update(user);
-		
+		if(name == null || name.isEmpty()  || password == null || password.isEmpty())
+		{
+			String error = "Name/password cannot be empty";
+			request.setAttribute("error", error);
+		}
+		else
+		{
+			if(request.getParameter("delete") != null)
+			{
+				bm.remove(id);
+			}
+			else
+			{
+				user.setUsername(request.getParameter("username"));
+				user.setPassword(request.getParameter("password"));
+				user.setEmail(request.getParameter("email"));
+				bm.update(user);
+			}
+		}
+		//System.out.println("User: " + user.getUsername());
 		request.getSession().setAttribute("user", user);
-		request.getRequestDispatcher("/WEB-INF/viewblogger.jsp").forward(request, response);
+		response.sendRedirect(request.getContextPath()+"/ViewBlogger/"+ id);
 	}
 
 }

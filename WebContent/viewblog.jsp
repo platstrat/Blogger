@@ -14,7 +14,7 @@
 	Content:
 	<textarea>${blog.content }</textarea>
 </layouts:layout_main>
-<form method="post" action="/UpdateRating">
+<form method="post" action="${pageContext.request.contextPath }/UpdateRating/${blog.id}">
 	Rate blog: 
 	<select name="rating">
 		<option value="1">1</option>
@@ -27,7 +27,7 @@
 </form>
 <c:choose>
 	<c:when test="${blog.blogger.username == user.username}"> 
-	<form method="post" action ="${pageContext.request.contextPath }/UpdateBlog">
+	<form method="post" action ="${pageContext.request.contextPath }/UpdateBlog/${blog.id}">
 		
 		<div class="form_left">Name:</div>
 		<div class="form_right">
@@ -63,7 +63,7 @@
 			<input type="text" multiple="multiple" name="content" />
 		</div> 
 		<div class="form_submit">
-			<input type="submit" value="Update Blog" />
+			<input type="submit" value="Update Blog" name="change"/>
 	    	<input type="submit" value="Delete Blog" name="delete">
 	    </div>
 		

@@ -38,16 +38,18 @@ public class ViewBlogger extends HttpServlet {
 		try 
 		{
 			int id = Integer.parseInt(request.getPathInfo().replace("/", ""));
-			System.out.println(id);
-			Blogger b = (Blogger)bm.getBlogger(id);
-			System.out.println(b.getBlogs());
-			request.setAttribute("user", bm.getBlogger(id));
+			Blogger b = bm.getBlogger(id);
+			request.getSession().setAttribute("user", b);
+			//      System.out.println("Blog: " + b.getBlogs().get(0).getName());  
+			request.getRequestDispatcher("/WEB-INF/viewblogger.jsp").forward(request, response);
+			return;
+
 		}
 		catch(Exception e) {
 			response.sendError(HttpServletResponse.SC_BAD_REQUEST);
 		}
 		
-		request.getRequestDispatcher("/WEB-INF/viewblogger.jsp").forward(request, response);
+		
 	}
 
 }

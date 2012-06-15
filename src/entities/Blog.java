@@ -1,5 +1,6 @@
 package entities;
 
+import static javax.persistence.CascadeType.ALL;
 import java.util.Date;
 import java.util.List;
 
@@ -34,10 +35,10 @@ public class Blog
     @ManyToOne(optional = false)
 	private Blogger blogger;
     
-    @OneToMany(mappedBy="blog")
+    @OneToMany(cascade = ALL, mappedBy="blog")
     private List<Comment> comments;
     
-    @OneToMany(mappedBy="blog")
+    @OneToMany(cascade = ALL, mappedBy="blog")
     private List<Rating> ratings;
 
     @Column(updatable=false, nullable=false)
@@ -141,6 +142,7 @@ public class Blog
 		for(Rating r : getRatings()) {
 			average += r.getRating();
 		}
+		average /= getRatings().size();
 		return average;
 	}
 }
